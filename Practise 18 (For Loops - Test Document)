@@ -1,0 +1,129 @@
+import numpy as np
+import pandas as pd
+import random
+import string
+import time
+from datetime import date
+
+
+# Start the timer
+start = time.time()
+
+
+# Variables
+MinAmountforClaim = 100
+MaxAmountforClaim = 10000
+number_of_elements_in_list = 20
+starting_year = 2010
+starting_month = 1
+starting_day = 1
+number_of_rows_in_df = 500
+number_of_columns_in_df = 5
+number_of_rows_in_complete_df = int(number_of_rows_in_df*(1+percentage_of_population_to_add))
+min_distance_between_rows = 4
+percentage_of_population_to_add = 0.1
+
+
+
+# Lists
+names = ['Jordan', 'Bill', 'Andy', 'Felix', 'Mark', 'Tom', 'Alex', 'Jack', 'Sam', 'Ben', 'Liam', 'Tony', 'Gary', 'Simon', 'Steve', 'Darren', 'Max', 'Ryan', 'Sean', 'Adam']
+surnames = ['Jones', 'Smith', 'Nichols', 'Bartlam', 'Andrews', 'Adams', 'Kane', 'Lampard', 'Beckham', 'Gerrard', 'Scholes', 'Johnson', 'Merson', 'Rooney', 'Crouch', 'Ince', 'Grahams', 'Obama', 'Trump', 'Cruz']
+postcodes = []
+dates = []
+my_index = []
+
+
+
+# Postcode
+for i in range(number_of_elements_in_list):
+    postcodes.append((random.choice(string.ascii_uppercase))+(random.choice(string.ascii_uppercase))+(str(random.randrange(1,9)))+' '+(str(random.randrange(1,9)))+(random.choice(string.ascii_uppercase))+(random.choice(string.ascii_uppercase)))
+
+
+
+# Date
+start_dt = date(starting_year, starting_month, starting_day).toordinal()
+end_dt = date.today().toordinal()
+
+def gen_random_date():
+    return date.fromordinal(random.randint(start_dt, end_dt))
+    
+for i in range(number_of_elements_in_list):
+    dates.append(gen_random_date())
+
+
+
+# Create our main dataframe
+df = pd.DataFrame(columns=['First Name', 'Surname', 'Amount', 'Postcode', 'Date'])
+for i in range(number_of_rows_in_df):
+    df = df.append({'First Name': random.choice(names), 'Surname': random.choice(surnames), 'Amount': random.randrange(MinAmountforClaim, MaxAmountforClaim), 'Postcode': random.choice(postcodes), 'Date': random.choice(dates)}, ignore_index=True)
+
+
+
+# Create our secondary dataframe 
+secondary_df = pd.DataFrame(columns=['First Name', 'Surname', 'Amount', 'Postcode', 'Date'])
+
+def replace_random_field():
+    
+    random_person = df.loc[[random.randint(0, (number_of_rows_in_df-1))]].copy()
+    random_column_number = random.randint(0,(number_of_columns_in_df-1))
+    
+    def replacement_value():
+        if random_column_number == 0:
+            return random.choice(names)
+        if random_column_number == 1:
+            return random.choice(surnames)
+        if random_column_number == 2:
+            return random.randrange(MinAmountforClaim, MaxAmountforClaim)
+        if random_column_number == 3:
+            return random.choice(postcodes)
+        if random_column_number == 4:
+            return random.choice(dates)
+    
+    random_person.iloc[:, (random_column_number)] = [replacement_value()]
+    global secondary_df
+    secondary_df = secondary_df.append(random_person)
+    return
+
+number_of_people_to_add = percentage_of_population_to_add*len(df.index)
+
+for i in range(int(number_of_people_to_add)):
+    replace_random_field()
+    
+print(secondary_df)
+
+
+
+# Creating our joined dataframe
+complete_df = pd.concat([df, secondary_df])
+print(complete_df)
+
+
+
+# Randomly shuffle the rows
+complete_df = complete_df.sample(frac=1).reset_index(drop=True)
+print(complete_df)
+
+
+
+
+# Return all the duplicates
+for i in range(number_of_rows_in_complete_df):
+    for j in range((i+1), number_of_rows_in_complete_df):
+        distance_between_rows = np.sum(1*(complete_df.loc[[i]].values == complete_df.loc[[j]].values))
+        
+        if distance_between_rows >= min_distance_between_rows:
+            if i != j:
+                # print('Row '+str(i)+' and '+'row '+str(j)+' are duplicates.')
+                global duplicates
+                duplicates = [x.name, i]
+
+
+print(duplicates)
+
+# End the timer
+end = time.time()
+total_time = round((end-start), 2)
+print('With '+str(number_of_rows_in_df)+' people this program takes: '+str(total_time)+' seconds to run.')
+
+
+

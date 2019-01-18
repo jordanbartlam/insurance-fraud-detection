@@ -1,0 +1,35 @@
+import random
+
+emptyNames = []
+
+names = ['Jordan', 'Bill', 'Andy', 'Felix', 'Mark', 'Tom', 'Alex', 'Jack', 'Sam', 'Ben', 'Liam', 'Tony', 'Gary', 'Simon', 'Steve', 'Darren', 'Max', 'Ryan', 'Sean', 'Adam']
+
+def twoEmptyNames():
+    emptyNames.append((random.choice(names)))
+    emptyNames.append((random.choice(names)))
+    
+
+for i in range(0, 50):
+    twoEmptyNames()
+    
+
+
+for i in range(0,50):
+    print(i+1, emptyNames[i], emptyNames[i+1])
+   
+
+
+
+
+    
+# import numpy as np
+
+
+ 
+
+# x = np.array([[1,2], [3,4], [5,6]])
+# x.resize(50, 2)
+
+
+
+# print(x)

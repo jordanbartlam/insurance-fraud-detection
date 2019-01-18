@@ -1,0 +1,43 @@
+import numpy as np
+import pandas as pd
+import random
+import string
+
+MinAmountforClaim = 100
+MaxAmountforClaim = 10000
+
+names = ['Jordan', 'Bill', 'Andy', 'Felix', 'Mark', 'Tom', 'Alex', 'Jack', 'Sam', 'Ben', 'Liam', 'Tony', 'Gary', 'Simon', 'Steve', 'Darren', 'Max', 'Ryan', 'Sean', 'Adam']
+surnames = ['Jones', 'Smith', 'Nichols', 'Bartlam', 'Andrews', 'Adams', 'Kane', 'Lampard', 'Beckham', 'Gerrard', 'Scholes', 'Johnson', 'Merson', 'Rooney', 'Crouch', 'Ince', 'Grahams', 'Obama', 'Trump', 'Cruz']
+postcodes = []
+dates = []
+
+for i in range(20):
+    postcodes.append((random.choice(string.ascii_uppercase))+(random.choice(string.ascii_uppercase))+(str(random.randrange(1,9)))+' '+(str(random.randrange(1,9)))+(random.choice(string.ascii_uppercase))+(random.choice(string.ascii_uppercase)))
+
+def RandomNumber1():
+    return random.randrange(0,4)
+def RandomNumber2():
+    return random.randrange(0,10)
+def RandomNumber3():
+    return random.randrange(0,2)
+def RandomNumber4():
+    return random.randrange(0,10)
+def RandomNumber6():
+    return random.randrange(0,9)
+
+def GenDate():
+    return ((str(RandomNumber1()))+(str(RandomNumber2()))+'/'+(str(RandomNumber3()))+(str(RandomNumber4()))+'/'+(str(1))+(str(RandomNumber6())))
+
+for i in range(20):
+    dates.append(GenDate())
+
+
+df = pd.DataFrame(columns=['First Name', 'Surname', 'Amount', 'Postcode', 'Date'])
+for i in range(50):
+    df = df.append({'First Name': random.choice(names), 'Surname': random.choice(surnames), 'Amount': random.randrange(MinAmountforClaim, MaxAmountforClaim), 'Postcode': random.choice(postcodes), 'Date': random.choice(dates)}, ignore_index=True)
+
+df
+
+
+
+

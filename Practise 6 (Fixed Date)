@@ -1,0 +1,45 @@
+import numpy as np
+import pandas as pd
+import random
+import string
+import datetime
+
+MinAmountforClaim = 100
+MaxAmountforClaim = 10000
+number_of_elements_in_list = 20
+starting_year = 2010
+starting_month = 1
+starting_day = 1
+number_of_rows_in_df = 50
+
+names = ['Jordan', 'Bill', 'Andy', 'Felix', 'Mark', 'Tom', 'Alex', 'Jack', 'Sam', 'Ben', 'Liam', 'Tony', 'Gary', 'Simon', 'Steve', 'Darren', 'Max', 'Ryan', 'Sean', 'Adam']
+surnames = ['Jones', 'Smith', 'Nichols', 'Bartlam', 'Andrews', 'Adams', 'Kane', 'Lampard', 'Beckham', 'Gerrard', 'Scholes', 'Johnson', 'Merson', 'Rooney', 'Crouch', 'Ince', 'Grahams', 'Obama', 'Trump', 'Cruz']
+postcodes = []
+dates = []
+my_index = []
+
+
+# Postcode
+for i in range(number_of_elements_in_list):
+    postcodes.append((random.choice(string.ascii_uppercase))+(random.choice(string.ascii_uppercase))+(str(random.randrange(1,9)))+' '+(str(random.randrange(1,9)))+(random.choice(string.ascii_uppercase))+(random.choice(string.ascii_uppercase)))
+
+# Date
+start_dt = date(2010, 1, 1).toordinal()
+end_dt = date.today().toordinal()
+
+def gen_random_date():
+    return date.fromordinal(random.randint(start_dt, end_dt))
+    
+for i in range(number_of_elements_in_list):
+    dates.append(gen_random_date())
+
+
+df = pd.DataFrame(columns=['First Name', 'Surname', 'Amount', 'Postcode', 'Date'])
+for i in range(number_of_rows_in_df):
+    df = df.append({'First Name': random.choice(names), 'Surname': random.choice(surnames), 'Amount': random.randrange(MinAmountforClaim, MaxAmountforClaim), 'Postcode': random.choice(postcodes), 'Date': random.choice(dates)}, ignore_index=True)
+
+df
+
+
+
+

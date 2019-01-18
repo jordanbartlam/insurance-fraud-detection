@@ -1,0 +1,25 @@
+import numpy as np
+import random
+
+names = ['Jordan', 'Bill', 'Andy', 'Felix', 'Mark', 'Tom', 'Alex', 'Jack', 'Sam', 'Ben', 'Liam', 'Tony', 'Gary', 'Simon', 'Steve', 'Darren', 'Max', 'Ryan', 'Sean', 'Adam']
+
+
+
+randomNames1 = []
+randomNames2 = []
+
+def fillRandomNames1():
+    randomNames1.append(random.choice(names))
+
+for i in range(0,50):
+    fillRandomNames1()
+    
+def fillRandomNames2():
+    randomNames2.append(random.choice(names))
+
+for i in range(0,50):
+    fillRandomNames2()
+    
+jointNames = list(zip(randomNames1, randomNames2))
+jointNames
+

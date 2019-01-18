@@ -1,0 +1,12 @@
+import numpy as np
+import pandas as pd
+import random
+
+names = ['Jordan', 'Bill', 'Andy', 'Felix', 'Mark', 'Tom', 'Alex', 'Jack', 'Sam', 'Ben', 'Liam', 'Tony', 'Gary', 'Simon', 'Steve', 'Darren', 'Max', 'Ryan', 'Sean', 'Adam']
+
+df = pd.DataFrame(columns=['Name 1', 'Name 2'])
+for i in range(50):
+    df = df.append({'Name 1': random.choice(names), 'Name 2': random.choice(names)}, ignore_index=True)
+
+df
+
